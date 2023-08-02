@@ -4,12 +4,11 @@ import { use, useState,useEffect } from 'react'
 function Grid() {
   const n = 4;
   const [matrix, setMatrix] = useState(Array.from({ length: n }, () => Array.from({ length: n }, () => 0)));
-  // useState(Array.from({ length: n }, () => Array.from({ length: n }, () => Math.floor((Math.random() * 10%2) + 1))));
+  
   
   useEffect(() => {
     randomnumberplacer();
     randomnumberplacer();
-    // setMatrix(Array.from({ length: n }, () => Array.from({ length: n }, () => Math.pow(2,Math.floor((Math.random() * 10%3) + 1)))));
     
   },[]);
 
@@ -141,7 +140,7 @@ function Grid() {
     let j = Math.floor((Math.random() * 10%4) );
     let newarr = [...matrix];
     if(matrix[i][j] == 0){
-      newarr[i][j] = 2;
+      newarr[i][j] = Math.random() < 0.9 ? 2 : 4
       setMatrix(newarr);
     }
     else{
@@ -151,13 +150,14 @@ function Grid() {
   
 
   return (
-    <div className='h-full w-full '>
+    <div className='flex h-full w-full '>
+      <div className='h-full w-full'></div>
       <table className='table-fixed h-4/5 w-1/3 pt-16 border-separate border-spacing-2 m-auto'>
         <tbody>
           {matrix.map((row, rowIndex) => (
             <tr key={rowIndex}>
               {row.map((column, columnIndex) => (
-                <td className={`transition-all  rounded-2xl w-32 h-32 text-center
+                <td className={`transition-all  rounded-2xl w-28 h-28 text-center
                 ${
                   matrix[rowIndex][columnIndex]==2 ? 'bg-two-1': 
                   matrix[rowIndex][columnIndex]==4 ? 'bg-four-1':
@@ -193,6 +193,7 @@ function Grid() {
           ))}
         </tbody>
       </table>
+      <div className='h-full w-full'></div>
     </div>
   )
 }
