@@ -4,13 +4,23 @@ import { use, useState,useEffect } from 'react'
 function Grid() {
   const n = 4;
   const [matrix, setMatrix] = useState(Array.from({ length: n }, () => Array.from({ length: n }, () => 0)));
-  
+  const [reset, setReset] = useState(false);
   
   useEffect(() => {
+    console.log("gay")
+
+
     randomnumberplacer();
     randomnumberplacer();
     
-  },[]);
+  },[reset]);
+
+  const reset1 = () => {
+    let newarr = Array.from({ length: n }, () => Array.from({ length: n }, () => 0));
+    setMatrix(newarr);  
+    setReset(!reset);
+  }
+
 
   const handleKeyDown = (event: KeyboardEvent) => {
     console.log(event.key);
@@ -151,8 +161,10 @@ function Grid() {
 
   return (
     <div className='flex h-full w-full '>
-      <div className='h-full w-full'></div>
-      <table className='table-fixed h-4/5 w-1/3 pt-16 border-separate border-spacing-2 m-auto'>
+      <div className='h-full w-full flex'>
+      <button onClick={()=>reset1()} className='m-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Reset</button>
+      </div>
+      <table className='table-fixed h-4/5 w-1/3 pt-auto border-separate border-spacing-2 m-auto'>
         <tbody>
           {matrix.map((row, rowIndex) => (
             <tr key={rowIndex}>
